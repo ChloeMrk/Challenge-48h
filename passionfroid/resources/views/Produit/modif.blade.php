@@ -5,6 +5,8 @@
 
     {{csrf_field()}}
 
+    <div class="modifs"><img src="{{$url_image}}" alt="produitImage"></div>
+
     
     <input type="string" name="titre" placeholder="Name" value={{old('name')}}>
 

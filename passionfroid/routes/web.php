@@ -41,5 +41,13 @@ Route::post('/ambiance','App\Http\Controllers\AmbiancesController@ambiances'); /
 Route::get('/modif','App\Http\Controllers\AmbiancesController@form_ambiance');
 Route::post('/modif','App\Http\Controllers\AmbiancesController@ambiance_modification');
 
-Route::get('/modifs/{id}','App\Http\Controllers\ProduitsController@form_produit');
-Route::post('/modifs/{id}','App\Http\Controllers\ProduitsController@produit_modification');
+Route::get('modifs/{id}','App\Http\Controllers\ProduitsController@form_produit');
+Route::post('modifs/{id}','App\Http\Controllers\ProduitsController@produit_modification');
+
+Route::get('show/{id}','App\Http\Controllers\AmbiancesController@show')->name('showAmbiance');
+
+Route::get('shows/{id}','App\Http\Controllers\ProduitsController@show')->name('showProduit');
+
+Route::get('/ajout','App\Http\Controllers\ProduitsController@ajout_en_masse');
+
+Route::get('/ajouts','App\Http\Controllers\AmbiancesController@ajout_en_masse');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Ambiance as Ambiance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File ;
 
 class AmbiancesController extends Controller
 {
@@ -40,4 +41,30 @@ class AmbiancesController extends Controller
             $ambiances->titre;
             $ambiances->tag;
      }
+
+     public function show(int $id){
+        $produits = Ambiance::all()->where('id',$id)->first();
+        return view('Ambiance/show',['titre'=>$produits->titres,'tag'=>$produits->tags,'url_images'=>$produits->url_images]);
+
+    }
+
+    public function ajout_en_masse() //le dossier doit être stocker à la racine du fichier public
+    {
+        $path = public_path('/' . 'photos ambiance');
+        $files = File::allfiles($path);
+        foreach ($files as $photo){
+            cloudinary()->upload($photo->getRealPath())->getSecurePath();
+
+            $ambiances = Ambiance::create([
+ 
+             
+                // Stocke l'image sur Cloudinary et renvoie l'URL sécurisée
+               'url_images' => cloudinary()->upload($photo->getRealPath())->getSecurePath(),
+             
+    
+   
+          ]);
+        } 
+    }
+
 }

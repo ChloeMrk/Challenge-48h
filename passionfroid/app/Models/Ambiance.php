@@ -9,5 +9,5 @@ class Ambiance extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['url_images','id'];
+    protected $fillable = ['url_images','id','tags','titres'];
 }

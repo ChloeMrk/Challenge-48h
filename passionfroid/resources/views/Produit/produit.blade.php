@@ -8,7 +8,7 @@
     {{csrf_field()}}
 
    
-    <input type="file" class="" id="inputFile" name="file">
+    <input type="file" class="" id="inputFile" name="file[]" multiple>
 
     <input type="submit" value="Valider">
 
