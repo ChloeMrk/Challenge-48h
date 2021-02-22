@@ -29,3 +29,17 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 Route::get('/signout','App\Http\Controllers\UserAccountController@signout');
+
+Route::get('/produit','App\Http\Controllers\ProduitsController@ajout'); //Afficher le formulaire pour créer un produit
+
+Route::post('/produit','App\Http\Controllers\ProduitsController@produit'); //Envoyer les donnée à la base de donnée
+
+Route::get('/ambiance','App\Http\Controllers\AmbiancesController@ajouts'); //Afficher le formulaire pour créer un produit
+
+Route::post('/ambiance','App\Http\Controllers\AmbiancesController@ambiances'); //Envoyer les donnée à la base de donnée
+
+Route::get('/modif','App\Http\Controllers\AmbiancesController@form_ambiance');
+Route::post('/modif','App\Http\Controllers\AmbiancesController@ambiance_modification');
+
+Route::get('/modifs/{id}','App\Http\Controllers\ProduitsController@form_produit');
+Route::post('/modifs/{id}','App\Http\Controllers\ProduitsController@produit_modification');
