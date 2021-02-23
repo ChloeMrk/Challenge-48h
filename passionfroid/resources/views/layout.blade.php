@@ -16,9 +16,9 @@
  
 
 
-    <div class="container">
+ 
     @yield('contenu') <!-- Pour insérer une vue-->
-    </div>
+   
 
     
 

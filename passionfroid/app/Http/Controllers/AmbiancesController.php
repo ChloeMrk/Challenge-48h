@@ -36,12 +36,14 @@ class AmbiancesController extends Controller
     
     }
 
-     public function ambiance_modification(int $id){
+     public function ambiance_modification(){
+         $id = request('id');
         $ambiances = Ambiance::all()->where('id',$id)->first();
-            $ambiances = id();
+           
             $ambiances->titres = request('titres');
             $ambiances->tags = request('tags');
             $ambiance->save();
+            return view("Ambiance/ambiance");
      }
 
      public function show(int $id){
@@ -91,5 +93,17 @@ class AmbiancesController extends Controller
         return view('Ambiance/search')->with('ambiances',$ambiances);
 
     }
+
+    public function update($ambiance, $request)
+        {
+            $request->merge([
+                'active' => $request->has('active'),
+                'titre' => basename($request->titres),
+                'tag' => basename($request->tags),
+            ]);
+            $ambiance->update($request->all());
+            $this->saveCategoriesAndTags($ambiance, $request);
+        }
+
 
 }

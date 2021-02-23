@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('/inscription','App\Http\Controllers\InscriptionsController@inscription');
@@ -38,11 +38,11 @@ Route::get('/uploads','App\Http\Controllers\AmbiancesController@ajouts'); //Affi
 
 Route::post('/uploads','App\Http\Controllers\AmbiancesController@ambiances'); //Envoyer les donnée à la base de donnée
 
-Route::get('/modif/{id}','App\Http\Controllers\AmbiancesController@form_ambiance')->name('modificiation.ambiance');
-Route::post('/modif/{id}','App\Http\Controllers\AmbiancesController@ambiance_modification');
+Route::get('/modif/{id}','App\Http\Controllers\AmbiancesController@form_ambiance')->name('modification.ambiance');
+Route::post('/ambiance_modification','App\Http\Controllers\AmbiancesController@update');
 
 Route::get('modifs/{id}','App\Http\Controllers\ProduitsController@form_produit')->name('modification.produit');
-Route::post('modifs/{id}','App\Http\Controllers\ProduitsController@produit_modification');
+Route::post('/produit_modification','App\Http\Controllers\ProduitsController@update');
 
 Route::get('show/{id}','App\Http\Controllers\AmbiancesController@show')->name('showAmbiance');
 
