@@ -30,18 +30,18 @@ Route::group(['prefix' => 'admin'], function () {
 });
 Route::get('/signout','App\Http\Controllers\UserAccountController@signout');
 
-Route::get('/produit','App\Http\Controllers\ProduitsController@ajout'); //Afficher le formulaire pour créer un produit
+Route::get('/upload','App\Http\Controllers\ProduitsController@ajout'); //Afficher le formulaire pour créer un produit
 
-Route::post('/produit','App\Http\Controllers\ProduitsController@produit'); //Envoyer les donnée à la base de donnée
+Route::post('/upload','App\Http\Controllers\ProduitsController@produit'); //Envoyer les donnée à la base de donnée
 
-Route::get('/ambiance','App\Http\Controllers\AmbiancesController@ajouts'); //Afficher le formulaire pour créer un produit
+Route::get('/uploads','App\Http\Controllers\AmbiancesController@ajouts'); //Afficher le formulaire pour créer un produit
 
-Route::post('/ambiance','App\Http\Controllers\AmbiancesController@ambiances'); //Envoyer les donnée à la base de donnée
+Route::post('/uploads','App\Http\Controllers\AmbiancesController@ambiances'); //Envoyer les donnée à la base de donnée
 
-Route::get('/modif','App\Http\Controllers\AmbiancesController@form_ambiance');
-Route::post('/modif','App\Http\Controllers\AmbiancesController@ambiance_modification');
+Route::get('/modif/{id}','App\Http\Controllers\AmbiancesController@form_ambiance')->name('modificiation.ambiance');
+Route::post('/modif/{id}','App\Http\Controllers\AmbiancesController@ambiance_modification');
 
-Route::get('modifs/{id}','App\Http\Controllers\ProduitsController@form_produit');
+Route::get('modifs/{id}','App\Http\Controllers\ProduitsController@form_produit')->name('modification.produit');
 Route::post('modifs/{id}','App\Http\Controllers\ProduitsController@produit_modification');
 
 Route::get('show/{id}','App\Http\Controllers\AmbiancesController@show')->name('showAmbiance');
@@ -51,3 +51,9 @@ Route::get('shows/{id}','App\Http\Controllers\ProduitsController@show')->name('s
 Route::get('/ajout','App\Http\Controllers\ProduitsController@ajout_en_masse');
 
 Route::get('/ajouts','App\Http\Controllers\AmbiancesController@ajout_en_masse');
+
+Route::get('/ambiance','App\Http\Controllers\AmbiancesController@catalogue');
+Route::get('/produit','App\Http\Controllers\ProduitsController@catalogue');
+
+Route::get('/search', 'App\Http\Controllers\ProduitsController@recherche');
+Route::get('/searchs', 'App\Http\Controllers\AmbiancesController@recherche');

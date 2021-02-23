@@ -5,8 +5,10 @@
 
     {{csrf_field()}}
 
+    <div class="modifs"><img src="{{$url_images}}" alt="produitImage"></div>
+
     
-    <input type="string" name="titre" placeholder="Name" value={{old('name')}}>
+    <input type="string" name="titre" placeholder="Titre" value={{old('name')}}>
 
     
     <input type="text" name="tag" placeholder="tag">

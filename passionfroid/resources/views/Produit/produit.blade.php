@@ -1,21 +1,25 @@
 @extends('layout')
 
+
 @section('contenu')
 
-<!-- Récupérer les données pour les envoyer dans la table produit -->
-<form action="/produit"   method="post" enctype="multipart/form-data">
+@foreach($produits as $produit)  
 
-    {{csrf_field()}}
+    <div class="catalogue">
+        <a href="{{route('showProduit',['id'=>$produit->id])}}" style="text-decoration:none">
+        <h4 >{{$produit->titre}}</h4>
+        
+    <div><img src="{{$produit->url_image}}" alt="produitImage"></div></a>
+    <p>{{$produit->tag}} </p>
 
-   
-    <input type="file" class="" id="inputFile" name="file[]" multiple>
+    <form action="{{route('modification.produit',['id'=>$produit->id])}}">
+                <button type="submit">Modifier</button>
+    </form>
 
-    <input type="submit" value="Valider">
-
-
-
+    </div> 
 
 
-</form>
+@endforeach
+
 
 @endsection

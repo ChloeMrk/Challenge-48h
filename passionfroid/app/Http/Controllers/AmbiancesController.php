@@ -10,7 +10,7 @@ class AmbiancesController extends Controller
     //
 
     public function ajouts(){
-        return view('Ambiance/ambiance');
+        return view('Ambiance/ajout');
     }
 
     public function ambiances(){
@@ -29,22 +29,24 @@ class AmbiancesController extends Controller
         ]);
      }
 
-     public function form_ambiance(){
+     public function form_ambiance(int $id){
+        $ambiances = Ambiance::all()->where('id',$id)->first();
         return view('Ambiance/modif');
 
     
     }
 
-     public function ambiance_modification(){
-        $ambiances = Ambiance::all();
-
-            $ambiances->titre;
-            $ambiances->tag;
+     public function ambiance_modification(int $id){
+        $ambiances = Ambiance::all()->where('id',$id)->first();
+            $ambiances = id();
+            $ambiances->titres = request('titres');
+            $ambiances->tags = request('tags');
+            $ambiance->save();
      }
 
      public function show(int $id){
-        $produits = Ambiance::all()->where('id',$id)->first();
-        return view('Ambiance/show',['titre'=>$produits->titres,'tag'=>$produits->tags,'url_images'=>$produits->url_images]);
+        $ambiances= Ambiance::all()->where('id',$id)->first();
+        return view('Ambiance/show',['titre'=>$ambiances->titres,'tag'=>$ambiances->tags,'url_images'=>$ambiances->url_images]);
 
     }
 
@@ -53,7 +55,7 @@ class AmbiancesController extends Controller
         $path = public_path('/' . 'photos ambiance');
         $files = File::allfiles($path);
         foreach ($files as $photo){
-            cloudinary()->upload($photo->getRealPath())->getSecurePath();
+            
 
             $ambiances = Ambiance::create([
  
@@ -65,6 +67,29 @@ class AmbiancesController extends Controller
    
           ]);
         } 
+    }
+
+    public function catalogue(){
+
+        $ambiances= Ambiance::all();
+       
+        return view('Ambiance/ambiance',[
+            'ambiances'=>$ambiances,
+            
+        ]);
+    }
+
+
+    public function recherche()
+    {
+        $search = request()->input('search');
+
+        $ambiances = Ambiance::where('titres','like',"%$search%")
+            ->orWhere('tags','like',"%$search%")
+            ->paginate(2);
+
+        return view('Ambiance/search')->with('ambiances',$ambiances);
+
     }
 
 }

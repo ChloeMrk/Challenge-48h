@@ -1,22 +1,22 @@
 @extends('layout')
 
-@section('contenu')
 
-<!-- Récupérer les données pour les envoyer dans la table produit -->
-<form action="/ambiance"   method="post" enctype="multipart/form-data">
+@foreach($ambiances as $ambiance)  
 
-    {{csrf_field()}}
+            <div class="catalogue">
+                <a href="{{route('showAmbiance',['id'=>$ambiance->id])}}" style="text-decoration:none">
+                <h4 >{{$ambiance->titre}}</h4>
+                
+            <div><img src="{{$ambiance->url_images}}" alt="produitImage"></div></a>
+            <p>{{$ambiance->tag}}</p>
 
-    
-   
-    <input type="file" class="" id="inputFile" name="file[]" multiple >
-  
-    <input type="submit" value="Valider">
+            <form action="{{route('modificiation.ambiance',['id'=>$ambiance->id])}}">
+                <button type="submit">Modifier</button>
+            </form>
 
+           
 
+            </div> 
+            
 
-
-
-</form>
-
-@endsection
+        @endforeach

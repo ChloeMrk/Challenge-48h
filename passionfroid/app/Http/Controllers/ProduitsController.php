@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProduitsController extends Controller
 {
     public function ajout(){
-        return view('Produit/produit');
+        return view('Produit/ajout');
     }
     //
 
@@ -34,7 +34,7 @@ class ProduitsController extends Controller
         $path = public_path('/' . 'photos produits');
         $files = File::allfiles($path);
         foreach ($files as $photo){
-            cloudinary()->upload($photo->getRealPath())->getSecurePath();
+            
 
             $produits = Produit::create([
  
@@ -65,6 +65,31 @@ class ProduitsController extends Controller
      public function show(int $id){
         $produits = Produit::all()->where('id',$id)->first();
         return view('Produit/show',['titre'=>$produits->titre,'tag'=>$produits->tag,'url_image'=>$produits->url_image]);
+
+    }
+
+    public function catalogue(){
+
+        $produits= Produit::all();
+    
+       
+        return view('Produit/produit',[
+            'produits'=>$produits,
+            
+        ]);
+    }
+
+
+
+    public function recherche()
+    {
+        $search = request()->input('search');
+
+        $produits = Produit::where('titre','like',"%$search%")
+            ->orWhere('tag','like',"%$search%")
+            ->paginate(2);
+
+        return view('Produit/search')->with('produits',$produits);
 
     }
 }
