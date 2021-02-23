@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\File ;
 class AmbiancesController extends Controller
 {
     //
-
+//Ajout en masse de fichier qui est dans public
     public function ajouts(){
         return view('Ambiance/ajout');
     }
+
+    
 
     public function ambiances(){
 
@@ -29,6 +31,7 @@ class AmbiancesController extends Controller
         ]);
      }
 
+    //Affiche le form à chaque id
      public function form_ambiance(int $id){
         $ambiances = Ambiance::all()->where('id',$id)->first();
         return view('Ambiance/modif');
@@ -46,6 +49,7 @@ class AmbiancesController extends Controller
             return view("Ambiance/ambiance");
      }
 
+     //Affiche à chaque clique sur l'image l'image en question
      public function show(int $id){
         $ambiances= Ambiance::all()->where('id',$id)->first();
         return view('Ambiance/show',['titre'=>$ambiances->titres,'tag'=>$ambiances->tags,'url_images'=>$ambiances->url_images]);
@@ -71,6 +75,8 @@ class AmbiancesController extends Controller
         } 
     }
 
+    //Affiche les images de la bdd
+
     public function catalogue(){
 
         $ambiances= Ambiance::all();
@@ -81,7 +87,7 @@ class AmbiancesController extends Controller
         ]);
     }
 
-
+    //Permet la recherche
     public function recherche()
     {
         $search = request()->input('search');
@@ -94,16 +100,7 @@ class AmbiancesController extends Controller
 
     }
 
-    public function update($ambiance, $request)
-        {
-            $request->merge([
-                'active' => $request->has('active'),
-                'titre' => basename($request->titres),
-                'tag' => basename($request->tags),
-            ]);
-            $ambiance->update($request->all());
-            $this->saveCategoriesAndTags($ambiance, $request);
-        }
+   
 
 
 }
